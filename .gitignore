@@ -1,0 +1,6 @@
+node_modules
+coverage
+
+# Distribution files
+dist-es2015/
+dist/

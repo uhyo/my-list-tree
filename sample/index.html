@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Sample HTML</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <h1>Sample document</h1>
+    <p>This is a tree:</p>
+    <div class="tree">
+      Root node
+      <ul>
+        <li>Child 1
+          <ul>
+            <li>I'm grandson!</li>
+            <li>Who am I?</li>
+          </ul>
+        </li>
+        <li>
+          Child 2
+        </li>
+        <li>
+          Child 3
+          <ul>
+            <li>oh!</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <script src="../dist/bundle.js"></script>
+    <script>
+      MyListTree.run('.tree', {
+        label: 'tree-label',
+        children: 'tree-children',
+      });
+    </script>
+  </body>
+</html>
+

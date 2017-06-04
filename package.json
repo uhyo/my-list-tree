@@ -1,0 +1,46 @@
+{
+  "name": "my-list-tree",
+  "version": "0.0.0",
+  "description": "Makes lists fancy trees.",
+  "homepage": "",
+  "author": {
+    "name": "uhyo",
+    "email": "uhyo@uhy.ooo",
+    "url": ""
+  },
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "keywords": [
+    ""
+  ],
+  "devDependencies": {
+    "@types/jest": "^19.2.4",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-changed": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-tslint": "^8.1.0",
+    "gulp-typescript": "^3.1.7",
+    "jest": "^19.0.2",
+    "jest-cli": "^20.0.0",
+    "nsp": "^2.6.3",
+    "rollup": "^0.42.0",
+    "rollup-stream": "^1.19.0",
+    "ts-jest": "^20.0.5",
+    "tslint": "^5.4.2",
+    "typescript": "^2.3.4",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "scripts": {
+    "prepublish": "nsp check",
+    "test": "jest"
+  },
+  "repository": "git@github.com:uhyo/my-list-tree.git",
+  "license": "MIT"
+}
