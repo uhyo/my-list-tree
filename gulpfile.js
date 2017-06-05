@@ -56,7 +56,7 @@ const BUNDLE_NAME = "bundle.js";
 }
 {
   let rollupCache;
-  gulp.task('bundle', ['tsc'], ()=>{
+  function runRollup(){
     return rollupStream({
       entry: path.join(TS_DIST_LIB, 'index.js'),
       format: 'umd',
@@ -67,10 +67,16 @@ const BUNDLE_NAME = "bundle.js";
     })
     .on('bundle', bundle=> rollupCache = bundle)
     .pipe(source(BUNDLE_NAME))
-    .pipe(gulp.dest(DIST_LIB))
+    .pipe(gulp.dest(DIST_LIB));
+  }
+  gulp.task('bundle-main', ()=>{
+    return runRollup();
+  });
+  gulp.task('bundle', ['tsc'], ()=>{
+    return runRollup();
   });
   gulp.task('watch-bundle', ['bundle'], ()=>{
-    gulp.watch(path.join(TS_DIST_LIB, '**', '*.js'), ['bundle']);
+    gulp.watch(path.join(TS_DIST_LIB, '**', '*.js'), ['bundle-main']);
   });
 }
 {

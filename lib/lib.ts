@@ -3,6 +3,9 @@ import {
 } from './types';
 
 import treeify from './treeify';
+import {
+    writeCSS,
+} from './css';
 
 export {
     treeify,
@@ -19,4 +22,6 @@ export function run(selector: string, options: Options, doc: HTMLDocument = docu
     for (let i = 0; i < elms.length; i++){
         treeify(elms[i] as HTMLElement, options);
     }
+
+    writeCSS(options, doc);
 }
