@@ -8,10 +8,7 @@
     "email": "uhyo@uhy.ooo",
     "url": ""
   },
-  "files": [
-    "lib"
-  ],
-  "main": "lib/index.js",
+  "main": "dist/my-list-tree.min.js",
   "keywords": [
     ""
   ],

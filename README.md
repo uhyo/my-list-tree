@@ -1,18 +1,17 @@
-# my-list-tree [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+# my-list-tree [![NPM version][npm-image]][npm-url]
 > Makes lists fancy trees.
+
+## Example
+See `sample/index.html`.
 
 ## Installation
 
-```sh
-$ npm install --save my-list-tree
-```
+Take `dist/my-list-tree.min.js`.
 
 ## Usage
 
 ```js
-const myListTree = require('my-list-tree');
-
-myListTree('Rainbow');
+MyListTree.run('.tree');
 ```
 ## License
 
