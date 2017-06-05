@@ -14,27 +14,42 @@ export function writeCSS(options: Options, doc: HTMLDocument): void{
 
 function cssText(options: Options): string{
     return `
-.${options.children} {
-    border-left: 1px solid black;
-    margin: 0 0 0 1em;
-    padding: 0 0 0 2em;
+div.${options.children} {
+    margin: 0 0 0 ${options.indentTree};
+}
+div.${options.labelNonRoot} + div.${options.children} {
+    margin-left: calc(${options.indentTree} + ${options.indentChildren});
 }
 .${options.children} > ul {
     list-style-type: none;
     margin: 0;
-    padding: 0.6em 0 0 0;
+    padding: 0;
+}
+.${options.children} > ul > li {
+    border-left: 1px solid black;
+    padding: 0 0 0.4em 0;
+}
+.${options.children} > ul > li.${options.liLastChild} {
+    border-left: none;
 }
 .${options.label} {
-    margin: 0.6em 0 0 0;
+    display: flex;
 }
-.${options.label}--nonroot {
-    margin-left: -2em;
+.${options.labelNonRoot} {
 }
-.${options.label}--line {
-    display: inline-block;
-    width: 2em;
+.${options.labelLine} {
+    align-self: flex-start;
+    width: ${options.indentChildren};
     border-bottom: 1px solid black;
-    transform: translate(0, -0.35em);
+    transform: translate(0, calc(0.5em + ${options.labelTopPadding}));
+}
+li.${options.liLastChild} div.${options.labelLine} {
+    border-left: 1px solid black;
+    height: calc(0.5em + ${options.labelTopPadding});
+    transform: none;
+}
+div.${options.labelNonRoot} div.${options.labelMain} {
+    padding: ${options.labelTopPadding} 0 0 0;
 }
 `;
 }

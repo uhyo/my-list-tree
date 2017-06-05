@@ -44,19 +44,22 @@ export default function treeify(elm: HTMLElement, options: Options, nonroot: boo
 
     // labelを包む
     const labelNode = doc.createElement('div');
-    labelNode.classList.add(options.label);
+    labelNode.classList.add(options.labelMain);
+    label.surroundContents(labelNode);
+    const labelWrapperNode = doc.createElement('div');
+    labelWrapperNode.classList.add(options.label);
     if (nonroot){
-        labelNode.classList.add(`${options.label}--nonroot`);
+        labelWrapperNode.classList.add(options.labelNonRoot);
     }
     if (lastchild){
-        labelNode.classList.add(`${options.label}--last-child`);
+        labelWrapperNode.classList.add(options.labelLastChild);
     }
-    label.surroundContents(labelNode);
+    label.surroundContents(labelWrapperNode);
     // 横線を追加
     if (nonroot){
         const liner = doc.createElement('div');
-        liner.classList.add(`${options.label}--line`);
-        labelNode.insertBefore(liner, labelNode.firstChild);
+        liner.classList.add(options.labelLine);
+        labelWrapperNode.insertBefore(liner, labelWrapperNode.firstChild);
     }
 
     // ulも包む
@@ -74,6 +77,9 @@ export default function treeify(elm: HTMLElement, options: Options, nonroot: boo
         for (let i = childNodes.length-1; i >= 0; i--){
             const child = childNodes[i] as HTMLElement;
             if (child.nodeType === Node.ELEMENT_NODE && child.tagName === 'LI'){
+                if (lastchild){
+                    child.classList.add(options.liLastChild);
+                }
                 treeify(child, options, true, lastchild);
                 lastchild = false;
             }

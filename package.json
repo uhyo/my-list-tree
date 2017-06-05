@@ -20,14 +20,18 @@
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-changed": "^3.1.0",
+    "gulp-clone": "^1.0.0",
+    "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-tslint": "^8.1.0",
     "gulp-typescript": "^3.1.7",
+    "gulp-uglify": "^3.0.0",
     "jest": "^19.0.2",
     "jest-cli": "^20.0.0",
     "merge2": "^1.0.3",
     "nsp": "^2.6.3",
     "rollup": "^0.42.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-stream": "^1.19.0",
     "ts-jest": "^20.0.5",
     "tslint": "^5.4.2",
@@ -43,5 +47,8 @@
     "test": "jest"
   },
   "repository": "git@github.com:uhyo/my-list-tree.git",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "tslib": "^1.7.1"
+  }
 }

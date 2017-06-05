@@ -14,13 +14,19 @@ const rollupStream = require('rollup-stream');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const del = require('del');
+const rollupPluginNodeResolve = require('rollup-plugin-node-resolve');
+const gulpUglify = require('gulp-uglify');
+const gulpClone = require('gulp-clone');
+const gulpRename = require('gulp-rename');
 
 const LIB_DIR = "lib/";
 const TS_DIST_LIB = "dist-es2015/";
 const DIST_DECLARATION = "dist-typing/";
 const DIST_LIB = "dist/";
 const BUNDLE_MODULE_NAME = "MyListTree";
-const BUNDLE_NAME = "bundle.js";
+const BUNDLE_NAME = "my-list-tree.js";
+
+const PRODUCTION = process.env.NODE_ENV === 'production';
 
 {
   const tsProj = gulpTS.createProject('tsconfig.json', {
@@ -57,17 +63,33 @@ const BUNDLE_NAME = "bundle.js";
 {
   let rollupCache;
   function runRollup(){
-    return rollupStream({
+    const result = rollupStream({
       entry: path.join(TS_DIST_LIB, 'index.js'),
       format: 'umd',
       moduleName: BUNDLE_MODULE_NAME,
       sourceMap: 'inline',
       rollup,
       cache: rollupCache,
+      plugins: [
+        rollupPluginNodeResolve(),
+      ],
     })
     .on('bundle', bundle=> rollupCache = bundle)
-    .pipe(source(BUNDLE_NAME))
-    .pipe(gulp.dest(DIST_LIB));
+    .pipe(source(BUNDLE_NAME));
+
+    if (PRODUCTION){
+      const min = result.pipe(gulpClone())
+      .pipe(gulpRename(path=>{
+        path.extname = '.min' + path.extname;
+      }))
+      .pipe(buffer())
+      .pipe(gulpUglify())
+      .pipe(gulp.dest(DIST_LIB));
+      const normal = result
+      .pipe(gulp.dest(DIST_LIB));
+      return merge2(min, normal);
+    }
+    return result.pipe(gulp.dest(DIST_LIB));
   }
   gulp.task('bundle-main', ()=>{
     return runRollup();
