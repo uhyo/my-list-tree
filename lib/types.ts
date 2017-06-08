@@ -1,5 +1,9 @@
 export interface Options{
     /**
+     * class of list items which should not have branch line.
+     */
+    noBranchClass: string;
+    /**
      * class of node label wrapper.
      */
     label: string;

@@ -20,28 +20,29 @@ div.${options.children} {
 div.${options.labelNonRoot} + div.${options.children} {
     margin-left: calc(${options.indentTree} + ${options.indentChildren});
 }
-.${options.children} > ul {
+div.${options.children} > ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
-.${options.children} > ul > li {
+div.${options.children} > ul > li {
     border-left: 1px solid black;
     padding: 0 0 0.4em 0;
 }
-.${options.children} > ul > li.${options.liLastChild} {
+div.${options.children} > ul > li.${options.liLastChild} {
     border-left: none;
 }
-.${options.label} {
+div.${options.label} {
     display: flex;
 }
-.${options.labelNonRoot} {
-}
-.${options.labelLine} {
+div.${options.labelLine} {
     align-self: flex-start;
     width: ${options.indentChildren};
     border-bottom: 1px solid black;
     transform: translate(0, calc(0.5em + ${options.labelTopPadding}));
+}
+li.${options.noBranchClass} div.${options.labelLine} {
+    border-bottom: none;
 }
 li.${options.liLastChild} div.${options.labelLine} {
     border-left: 1px solid black;

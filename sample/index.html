@@ -24,6 +24,9 @@
         <li>
           Child 2
         </li>
+        <li class="tree-no-branch">
+          ← Here is something!
+        </li>
         <li>
           Child 3
           <ul>
@@ -32,9 +35,11 @@
         </li>
       </ul>
     </div>
-    <script src="../dist/my-list-tree.min.js"></script>
+    <script src="../dist/my-list-tree.js"></script>
     <script>
-      MyListTree.run('.tree');
+      MyListTree.run('.tree', {
+        noBranchClass: 'tree-no-branch',
+      });
     </script>
   </body>
 </html>

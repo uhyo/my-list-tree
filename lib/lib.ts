@@ -38,6 +38,7 @@ export function run(selector: string, options?: Partial<Options>, doc: HTMLDocum
 export function getOptions(options: Partial<Options>): Options{
     const prefix = randomString();
     return {
+        noBranchClass: '${prefix}-no-branch',
         label: `${prefix}-label`,
         labelMain: `${prefix}-label-main`,
         labelNonRoot: `${prefix}-label-non-root`,
