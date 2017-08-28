@@ -73,15 +73,24 @@ export default function treeify(elm: HTMLElement, options: Options, nonroot: boo
         const {
             childNodes,
         } = ul;
-        let lastchild = true;
+
+        let noforwardsibling = true;
         for (let i = childNodes.length-1; i >= 0; i--){
             const child = childNodes[i] as HTMLElement;
             if (child.nodeType === Node.ELEMENT_NODE && child.tagName === 'LI'){
+                const nobranch = child.classList.contains(options.noBranchClass);
+                const lastchild = !nobranch && noforwardsibling;
                 if (lastchild){
                     child.classList.add(options.liLastChild);
                 }
+                if (noforwardsibling){
+                    child.classList.add(options.liNoForwardSibling);
+                }
                 treeify(child, options, true, lastchild);
-                lastchild = false;
+
+                if (!nobranch){
+                    noforwardsibling = false;
+                }
             }
         }
     }

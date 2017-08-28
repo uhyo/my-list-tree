@@ -32,6 +32,10 @@ export interface Options{
      */
     liLastChild: string;
     /**
+     * class of li which has no forward sibling.
+     */
+    liNoForwardSibling: string;
+    /**
      * indent of child tree.
      * Should be valid CSS width.
      */

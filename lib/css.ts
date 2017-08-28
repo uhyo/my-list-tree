@@ -29,7 +29,7 @@ div.${options.children} > ul > li {
     border-left: 1px solid black;
     padding: 0 0 0.4em 0;
 }
-div.${options.children} > ul > li.${options.liLastChild} {
+div.${options.children} > ul > li.${options.liNoForwardSibling} {
     border-left: none;
 }
 div.${options.label} {
@@ -44,7 +44,7 @@ div.${options.labelLine} {
 li.${options.noBranchClass} div.${options.labelLine} {
     border-bottom: none;
 }
-li.${options.liLastChild} div.${options.labelLine} {
+li.${options.liLastChild} > div.${options.label} > div.${options.labelLine} {
     border-left: 1px solid black;
     height: calc(0.5em + ${options.labelTopPadding});
     transform: none;

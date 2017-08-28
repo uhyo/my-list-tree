@@ -93,15 +93,22 @@ function treeify(elm, options, nonroot, lastchild) {
         ulNode.appendChild(ul);
         // ulの各childに再帰的に適用
         var childNodes_1 = ul.childNodes;
-        var lastchild_1 = true;
+        var noforwardsibling = true;
         for (var i = childNodes_1.length - 1; i >= 0; i--) {
             var child = childNodes_1[i];
             if (child.nodeType === Node.ELEMENT_NODE && child.tagName === 'LI') {
+                var nobranch = child.classList.contains(options.noBranchClass);
+                var lastchild_1 = !nobranch && noforwardsibling;
                 if (lastchild_1) {
                     child.classList.add(options.liLastChild);
                 }
+                if (noforwardsibling) {
+                    child.classList.add(options.liNoForwardSibling);
+                }
                 treeify(child, options, true, lastchild_1);
-                lastchild_1 = false;
+                if (!nobranch) {
+                    noforwardsibling = false;
+                }
             }
         }
     }
@@ -118,7 +125,7 @@ function writeCSS(options, doc) {
     doc.head.appendChild(style);
 }
 function cssText(options) {
-    return "\ndiv." + options.children + " {\n    margin: 0 0 0 " + options.indentTree + ";\n}\ndiv." + options.labelNonRoot + " + div." + options.children + " {\n    margin-left: calc(" + options.indentTree + " + " + options.indentChildren + ");\n}\ndiv." + options.children + " > ul {\n    list-style-type: none;\n    margin: 0;\n    padding: 0;\n}\ndiv." + options.children + " > ul > li {\n    border-left: 1px solid black;\n    padding: 0 0 0.4em 0;\n}\ndiv." + options.children + " > ul > li." + options.liLastChild + " {\n    border-left: none;\n}\ndiv." + options.label + " {\n    display: flex;\n}\ndiv." + options.labelLine + " {\n    align-self: flex-start;\n    width: " + options.indentChildren + ";\n    border-bottom: 1px solid black;\n    transform: translate(0, calc(0.5em + " + options.labelTopPadding + "));\n}\nli." + options.noBranchClass + " div." + options.labelLine + " {\n    border-bottom: none;\n}\nli." + options.liLastChild + " div." + options.labelLine + " {\n    border-left: 1px solid black;\n    height: calc(0.5em + " + options.labelTopPadding + ");\n    transform: none;\n}\ndiv." + options.labelNonRoot + " div." + options.labelMain + " {\n    padding: " + options.labelTopPadding + " 0 0 0;\n}\n";
+    return "\ndiv." + options.children + " {\n    margin: 0 0 0 " + options.indentTree + ";\n}\ndiv." + options.labelNonRoot + " + div." + options.children + " {\n    margin-left: calc(" + options.indentTree + " + " + options.indentChildren + ");\n}\ndiv." + options.children + " > ul {\n    list-style-type: none;\n    margin: 0;\n    padding: 0;\n}\ndiv." + options.children + " > ul > li {\n    border-left: 1px solid black;\n    padding: 0 0 0.4em 0;\n}\ndiv." + options.children + " > ul > li." + options.liNoForwardSibling + " {\n    border-left: none;\n}\ndiv." + options.label + " {\n    display: flex;\n}\ndiv." + options.labelLine + " {\n    align-self: flex-start;\n    width: " + options.indentChildren + ";\n    border-bottom: 1px solid black;\n    transform: translate(0, calc(0.5em + " + options.labelTopPadding + "));\n}\nli." + options.noBranchClass + " div." + options.labelLine + " {\n    border-bottom: none;\n}\nli." + options.liLastChild + " > div." + options.label + " > div." + options.labelLine + " {\n    border-left: 1px solid black;\n    height: calc(0.5em + " + options.labelTopPadding + ");\n    transform: none;\n}\ndiv." + options.labelNonRoot + " div." + options.labelMain + " {\n    padding: " + options.labelTopPadding + " 0 0 0;\n}\n";
 }
 
 /**
@@ -146,7 +153,7 @@ function run(selector, options, doc) {
  */
 function getOptions(options) {
     var prefix = randomString();
-    return __assign({ noBranchClass: '${prefix}-no-branch', label: prefix + "-label", labelMain: prefix + "-label-main", labelNonRoot: prefix + "-label-non-root", labelLastChild: prefix + "-label-last-child", labelLine: prefix + "-label-line", children: prefix + "-children", liLastChild: prefix + "-tree-li-last-child", indentTree: '1em', indentChildren: '3em', labelTopPadding: '0.2em' }, options);
+    return __assign({ noBranchClass: '${prefix}-no-branch', label: prefix + "-label", labelMain: prefix + "-label-main", labelNonRoot: prefix + "-label-non-root", labelLastChild: prefix + "-label-last-child", labelLine: prefix + "-label-line", children: prefix + "-children", liLastChild: prefix + "-tree-li-last-child", liNoForwardSibling: prefix + "-label-no-forward-sibling", indentTree: '1em', indentChildren: '3em', labelTopPadding: '0.2em' }, options);
 }
 /**
  * Generate short random string.

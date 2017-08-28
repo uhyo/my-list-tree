@@ -46,6 +46,7 @@ export function getOptions(options: Partial<Options>): Options{
         labelLine: `${prefix}-label-line`,
         children: `${prefix}-children`,
         liLastChild: `${prefix}-tree-li-last-child`,
+        liNoForwardSibling: `${prefix}-label-no-forward-sibling`,
         indentTree: '1em',
         indentChildren: '3em',
         labelTopPadding: '0.2em',
