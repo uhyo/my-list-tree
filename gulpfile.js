@@ -64,10 +64,10 @@ const PRODUCTION = process.env.NODE_ENV === 'production';
   let rollupCache;
   function runRollup(){
     const result = rollupStream({
-      entry: path.join(TS_DIST_LIB, 'index.js'),
+      input: path.join(TS_DIST_LIB, 'index.js'),
       format: 'umd',
-      moduleName: BUNDLE_MODULE_NAME,
-      sourceMap: 'inline',
+      name: BUNDLE_MODULE_NAME,
+      sourcemap: 'inline',
       rollup,
       cache: rollupCache,
       plugins: [
