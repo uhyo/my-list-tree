@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+  <head>
+    <title>my-list-tree</title>
+    <script src="./my-list-tree.min.js"></script>
+    <style>
+      pre {
+        background-color: #f5f5f5;
+        padding: 0.2rem;
+        border: 1px dashed #ababab;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>my-list-tree</h1>
+    <p>Repository: <a href="https://github.com/uhyo/my-list-tree">my-list-tree</a></p>
+
+    <h2>What is this?</h2>
+    <p>It renders a tree written by <code>ul</code> and <code>li</code> using lines.</p>
+
+    <h2>Example</h2>
+    <p><b>HTML</b>:</p>
+    <pre><code>&lt;div class="tree"&gt;
+  Root node
+  &lt;ul&gt;
+    &lt;li&gt;Child 1
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;div&gt;I'm grandson!&lt;br&gt;Oh my god&lt;/div&gt;
+          &lt;ul&gt;
+            &lt;li&gt;Hidden child&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;Who am I?&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      Child 2
+      &lt;ul&gt;
+        &lt;li&gt;
+          Another son
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+    </code></pre>
+    <p><b>Rendering result</b>:</p>
+    <div class="tree">
+      Root node
+      <ul>
+        <li>Child 1
+          <ul>
+            <li>
+              <div>I'm grandson!<br>Oh my god</div>
+              <ul>
+                <li>Hidden child</li>
+              </ul>
+            </li>
+            <li>Who am I?</li>
+          </ul>
+        </li>
+        <li>
+          Child 2
+          <ul>
+            <li>
+              Another son
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <h2>Usage</h2>
+    <pre><code>&lt;script src="path/to/my-list-tree.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  MyListTree.run('.tree');
+&lt;/script&gt;
+    </code></pre>
+
+    <h2>Advanced usage</h2>
+    <h3>No-branch child</h3>
+    <p>A child with no horizontal branch rendered can be made by giving <code>&lt;li&gt;</code> a certain class:</p>
+    <pre><code>&lt;div class="tree"&gt;
+  Root node
+  &lt;ul&gt;
+    &lt;li&gt;Child 1
+      &lt;ul&gt;
+        &lt;li <mark>class="no-branch"</mark>&gt; ← Here is something!&lt;/li&gt;
+        &lt;li&gt;First child&lt;/li&gt;
+        &lt;li&gt;Who am I?&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      Child 2
+      &lt;ul&gt;
+        &lt;li&gt;
+          Another son
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li <mark>class="no-branch"</mark>&gt;No more child!&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+    </code></pre>
+    <p> and by passing the corresponding option to <code>MyListTree.run</code>:</p>
+    <pre><code>&lt;script&gt;
+  MyListTree.run('.tree', {
+    <mark>noBranchClass: 'no-branch',</mark>
+  });
+&lt;/script&gt;
+    </code></pre>
+    <p><b>Rendering result</b></p>
+    <div class="tree">
+      Root node
+      <ul>
+        <li>Child 1
+          <ul>
+            <li class="no-branch"> ← Here is something!</li>
+            <li>First child</li>
+            <li>Who am I?</li>
+          </ul>
+        </li>
+        <li>
+          Child 2
+          <ul>
+            <li>
+              Another son
+            </li>
+          </ul>
+        </li>
+        <li class="no-branch">No more child!</li>
+      </ul>
+    </div>
+    <h2>Options</h2>
+    <p>There are several options passed to <code>MyListTree.run</code>. Most of them are to control class names attached to the generated tree structure.</p>
+    <p>See <a href="https://github.com/uhyo/my-list-tree/blob/master/lib/types.ts">lib/types.ts</a> for details.</p>
+
+    <h2>How it works</h2>
+    <p><code>MyListTree.run</code> adds a new <code>&lt;style&gt;</code> for styling trees to the <code>&lt;head&gt;</code> element.</p>
+    <p>It also adds some <code>&lt;div&gt;</code>s to trees for styling, preserving their <code>&lt;ul&gt;</code> and <code>&lt;li&gt;</code> structure.</p>
+
+    <script>
+      MyListTree.run('.tree', {
+        noBranchClass: 'no-branch',
+      });
+      for (const n of Array.from(document.querySelectorAll('pre > code'))){
+        const f = n.firstChild;
+        if (f.nodeType === f.TEXT_NODE){
+          f.nodeValue = f.nodeValue.replace(/^\s+/, '');
+        }
+        const l = n.lastChild;
+        if (l.nodeType === f.TEXT_NODE){
+          l.nodeValue = l.nodeValue.replace(/\s+$/, '');
+        }
+      }
+    </script>
+  </body>
+</html>
+
